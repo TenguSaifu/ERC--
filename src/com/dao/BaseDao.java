@@ -13,7 +13,6 @@ public class BaseDao {
             e.printStackTrace();
         }
     }
-//    git remote set-url origin https://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@github.com/TenguSaifu/ERC--.git
 
     public Connection getConnection() {
         try {
