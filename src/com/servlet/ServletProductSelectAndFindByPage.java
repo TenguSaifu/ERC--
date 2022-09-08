@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "ServletProductSelectAndFindByPage", urlPatterns = "/product_select")
+@WebServlet(name = "ServletProductSearchAndFindByPage", urlPatterns = "/product_select")
 public class ServletProductSelectAndFindByPage extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("ServletProductSelectAndFindByPage On");
+        System.out.println("ServletProductSearchAndFindByPage On");
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
         ProductService ps = new ProductServiceImp();
@@ -49,6 +49,6 @@ public class ServletProductSelectAndFindByPage extends HttpServlet {
         if (products != null) {
             request.getRequestDispatcher("hello.jsp").forward(request, response);
         }
-        System.out.println("ServletProductSelectAndFindByPage Off");
+        System.out.println("ServletProductSearchAndFindByPage Off");
     }
 }

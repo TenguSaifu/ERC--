@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet(name = "ServletProductUpdate", urlPatterns = "/product_update")
@@ -27,8 +28,13 @@ public class ServletProductUpdate extends HttpServlet {
         String cost_price = request.getParameter("cost_price");
         String purchase_price = request.getParameter("purchase_price");
         String unit_price = request.getParameter("unit_price");
+        response.setContentType("text/html;charset=gb2312");
+        PrintWriter out = response.getWriter();
         if (name.equals("") || unit.equals("") || classification.equals("") || norm.equals("")) {
             System.out.println("必要值为空，修改失败！");
+            out.print("<script>alert('必要值为空，修改失败！');window.location.href='hello'</script>");
+            out.flush();
+            out.close();
         } else {
             if (ps.update(id, name, unit, classification, norm, cost_price, purchase_price, unit_price)) {
                 int pageNow = 1;

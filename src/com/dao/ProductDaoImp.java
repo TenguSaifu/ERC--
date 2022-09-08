@@ -134,11 +134,12 @@ public class ProductDaoImp implements ProductDao {
         BaseDao Utils = new BaseDao();
         Connection conn = Utils.getConnection();
         boolean flag = false;
-        String sql = "update Products set review = ? where id = ?";
+        String sql = "update Products set review = ? where id = ? and review != ?";
         try {
             pst = conn.prepareStatement(sql);
             pst.setObject(1, "pass");
             pst.setObject(2, id);
+            pst.setObject(3, "pass");
             int rs = pst.executeUpdate();
             if (rs > 0) {
                 flag = true;
@@ -156,11 +157,12 @@ public class ProductDaoImp implements ProductDao {
         BaseDao Utils = new BaseDao();
         Connection conn = Utils.getConnection();
         boolean flag = false;
-        String sql = "update Products set review = ? where id = ?";
+        String sql = "update Products set review = ? where id = ? and review != ?";
         try {
             pst = conn.prepareStatement(sql);
             pst.setObject(1, "failed");
             pst.setObject(2, id);
+            pst.setObject(3, "failed");
             int rs = pst.executeUpdate();
             if (rs > 0) {
                 flag = true;
@@ -181,7 +183,7 @@ public class ProductDaoImp implements ProductDao {
         int pageCount = 10; //每页计数
         int id;
         String type, code, name, unit, classification, norm, cost_price, purchase_price, unit_price, review;
-        String sql = "select * from Products limit ?,?";
+        String sql = "select * from Products order by id limit ?,?";
         try {
             pst = conn.prepareStatement(sql);
             pst.setObject(1, (pageNow - 1) * pageCount);
@@ -218,12 +220,12 @@ public class ProductDaoImp implements ProductDao {
         int pageCount = 10; //每页计数
         int id;
         String type, code, name, unit, classification, norm, cost_price, purchase_price, unit_price, review;
-        String sql = "select * from Products where code like ? and name like ? and classification like ? limit ?,?";
+        String sql = "select * from Products where code like ? and name like ? and classification like ? order by id limit ?,?";
         try {
             pst = conn.prepareStatement(sql);
-            pst.setObject(1, a + "%");
-            pst.setObject(2, b + "%");
-            pst.setObject(3, c + "%");
+            pst.setObject(1, "%" + a + "%");
+            pst.setObject(2, "%" + b + "%");
+            pst.setObject(3, "%" + c + "%");
             pst.setObject(4, (pageNow - 1) * pageCount);
             pst.setObject(5, pageNow * pageCount);
             rs = pst.executeQuery();

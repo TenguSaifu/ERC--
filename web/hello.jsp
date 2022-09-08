@@ -339,7 +339,7 @@
                 data: {"ids": JSON.stringify(ids)},
                 success: function (ids_back) {
                     // location.reload();
-                    if(ids_back != ""){
+                    if (ids_back != "") {
                         alert("删除失败:" + ids_back);
                     }
                     window.location.href = "hello";
@@ -360,16 +360,21 @@
         var r = confirm("转换为审核通过:" + ids);
         if (r == true) {
             $.ajax({
-                type: "POST",
-                url: "/review_pass",
-                data: {"ids": JSON.stringify(ids)},
-                success: function () {
-                    window.location.href = "hello";
-                },
-                error: function () {
-                    alert("操作失败");
+                    type: "POST",
+                    url: "/review_pass",
+                    data: {"ids": JSON.stringify(ids)},
+                    success: function (code) {
+                        if (code != "0") {
+                            alert("此条审核操作失败，可能原因：重复通过审核！");
+                        }
+                        window.location.href = "hello";
+                    }
+                    ,
+                    error: function () {
+                        alert("操作失败");
+                    }
                 }
-            })
+            )
         }
     }
 
@@ -379,13 +384,16 @@
         $.each(nodes, function (i) {    //遍历所选的对象
             ids.push($(nodes[i]).val());  //将每一个选中对象的值赋给接收id的数组
         })
-        var r = confirm("转换为审核通过:" + ids);
+        var r = confirm("转换为审核不通过:" + ids);
         if (r == true) {
             $.ajax({
                 type: "POST",
                 url: "/review_failed",
                 data: {"ids": JSON.stringify(ids)},
-                success: function () {
+                success: function (code) {
+                    if (code != "0") {
+                        alert("此条审核操作失败，可能原因：重复不通过审核！");
+                    }
                     window.location.href = "hello";
                 },
                 error: function () {

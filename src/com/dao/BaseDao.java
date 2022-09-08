@@ -21,6 +21,7 @@ public class BaseDao {
                         "jdbc:mysql://localhost:3306/Project",
                         "root", "root");
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Failed to get database connection");
